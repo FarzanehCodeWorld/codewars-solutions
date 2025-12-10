@@ -9,11 +9,9 @@
 //  you can use one of slice() substring() or substr() do it. return the result after finished the work.
 
 ///***  S O L U T I O N ***//
-
 function cutIt(arr){
   let arrLengths = []
-  let shortestString =  Math.min(...arr.forEach(w => arrLengths.push(w.length)))
- console.log(arr.map(w => w.substring(0,shortestString)))
+  arr.forEach(w => arrLengths.push(w.length))
+ let shortestString = Math.min(...arrLengths)
+ return arr.map(w => w.substring(0,shortestString))
 }
-
-cutIt(['dv', 'dcged', 'hodoidh', 'bdws'])
