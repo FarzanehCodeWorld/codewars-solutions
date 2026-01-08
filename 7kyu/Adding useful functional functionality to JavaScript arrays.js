@@ -17,6 +17,7 @@
 // While not forbidden try to write both function without using a for loop
 
 //***  S o l u t i o n ***//
+
 Array.range = function(start, count) {
 let arrayLength = start + count
 let arr = []
