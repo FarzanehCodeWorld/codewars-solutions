@@ -1,0 +1,12 @@
+//description 
+function receives a two-dimensional square array of random integers.on the main diagonal all the negative integers must be changed to zero ,while the others must be changed to 1,(zero is considered non negative here)
+
+
+
+
+//solution
+
+function matrix(array){
+for(let i=0;i<array.length;i++){let[i][i]=let[i][i] < 0?0:1}
+return array
+}
