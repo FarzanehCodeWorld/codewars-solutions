@@ -1,0 +1,59 @@
+
+//Description 
+
+function evaluate(left, op, right)
+that given two operands (left and right) and an operator (op), will evaluate and return the result.
+
+For example:
+
+const left = {
+    'multiply': {
+        'add': [1, 2, 3, 4, 5],
+        'subtract': [5, 6, 7, 8, 9],
+        'multiply': [1, 2, 3, 4, 5],
+        'divide': [1, 2, 3, 4, 5]
+    }
+};
+// You will reduce each array based on its key. So you will start of with add(ing) [1,2,3,4,5] => 15
+// then subtract(ing) [5, 6, 7, 8, 9] => -25 etc. Once all arrays have been reduced, you will perform the
+// root key operation on all the reduced arrays. So in this case, you will multiply each reduced array with
+// each other. The order is ALWAYS value of 'add' key first, then 'subtract', then 'multiply' and finally 
+// 'divide'.
+const right = {
+    'subtract': {
+        'add': [1, 2, 3, 4, 5],
+        'subtract': [1, 2, 3, 4, 5],
+        'multiply': [1, 2, 3, 4, 5],
+        'divide': [1, 2, 3, 4, 5]
+    }
+};
+evaluate(left, 'add', right) === -467.0083333333333
+
+//Solution 
+
+const evaluate = (left, op, right) => evaluateOperation(op, [computeResult(left), computeResult(right)]);
+
+const evaluateOperation = (operation, array) => array.reduce((a, b) => {
+  switch (operation){
+    case "add":
+      return a + b;
+      break;
+    case "subtract":
+      return a - b;
+      break;
+    case "multiply":
+      return a * b;
+      break;
+    case "divide":
+      return a / b;
+      break;
+  }
+});
+
+function computeResult(object){
+  for (var operation in object){
+    var result = [];
+    ["add", "subtract", "multiply", "divide"].forEach(op => result.push(evaluateOperation(op, object[operation][op])));
+    return evaluateOperation(operation, result);
+  }
+}
