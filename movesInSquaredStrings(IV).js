@@ -38,3 +38,42 @@ function rot90Counter(strng) {
       return res
 }
 }
+
+// or 
+
+function diag2Sym(s) {
+  let rows = s.split('\n').map(r => Array.from(r));
+  let n = rows.length;
+  let result = [];
+
+  for (let i = 0; i < n; i++) {
+    let newRow = [];
+    for (let j = 0; j < n; j++) {
+      // cell (i, j) in the output comes from cell (n-1-j, n-1-i) in the original
+      newRow.push(rows[n - 1 - j][n - 1 - i]);
+    }
+    result.push(newRow.join(''));
+  }
+
+  return result.join('\n');
+}
+
+function rot90Counter(s) {
+  let rows = s.split('\n').map(r => Array.from(r));
+  let n = rows.length;
+  let result = [];
+
+  for (let col = n - 1; col >= 0; col--) {
+    let newRow = [];
+    for (let row = 0; row < n; row++) {
+      newRow.push(rows[row][col]);
+    }
+    result.push(newRow.join(''));
+  }
+
+  return result.join('\n');
+}
+
+let s = "abcd\nefgh\nijkl\nmnop";
+console.log(diag2Sym(s));      // "plhd\nokgc\nnjfb\nmiea"
+console.log(rot90Counter(s));  // "dhlp\ncgko\nbfjn\naeim"
