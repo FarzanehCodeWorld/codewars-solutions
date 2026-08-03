@@ -22,11 +22,9 @@ function diag2Sym(strng) {
 }
       res.push(roundResult.join(''))
       return res
-}
-    // your code
-}
+}}
+
 function rot90Counter(strng) {
-    // your code
       let res = []
   let arrayOfSubstrings = strng.split('\n').map(sub => Array.from(sub))
   let rounds = arrayOfSubstrings[0].length
