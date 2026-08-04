@@ -51,3 +51,13 @@ function oper(fct, s) {
   let result = fct(s)
   return Array.isArray(result) ? result.join('\n') : result
 } // "dhlp\ncgko\nbfjn\naeim"
+ // or
+
+const rot90Counter = s => s.map((v, i) => [...v].map((_, j) => s[j][i]).join('')).reverse()
+const diag2Sym = s => rot90Counter(s).map(v => [...v].reverse().join(''))
+const selfieDiag2Counterclock = s => {
+  const x = rot90Counter(s)
+  const y = diag2Sym(s)
+  return s.map((v, i) => v + '|' + y[i] + '|' + x[i])
+}
+const oper = (fct, s) => fct(s.split('\n')).join('\n')
