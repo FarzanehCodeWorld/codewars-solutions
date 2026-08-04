@@ -10,70 +10,44 @@
 // Counterclockwise rotation 90 degrees: rot_90_counter (or rot90Counter or rot-90-counter)
 
 // rot_90_counter(s)=> "dhlp\ncgko\nbfjn\naeim"
-function diag2Sym(strng) {
-    let res = []
-  let arrayOfSubstrings = strng.split('\n').reverse().map(sub => Array.from(sub))
+function diag2Sym(string) {
+  let res = []
+  let arrayOfSubstrings = string.split('\n').reverse().map(sub => Array.from(sub))
   let rounds = arrayOfSubstrings[0].length
-    for(let i = 0; i<rounds;i++){
-      let roundResult = []
-     arrayOfSubstrings[i]
-      for(let j=0; j<arrayOfSubstrings.length; j++){
-        roundResult.push(arrayOfSubstrings[j].pop())
+  for (let i = 0; i < rounds; i++) {
+    let roundResult = []
+    for (let j = 0; j < arrayOfSubstrings.length; j++) {
+      roundResult.push(arrayOfSubstrings[j].pop())
+    }
+    res.push(roundResult.join(''))
+  }
+  return res // moved outside the loop — this was the bug
 }
-      res.push(roundResult.join(''))
-      return res
-}}
 
 function rot90Counter(strng) {
-      let res = []
+  let res = []
   let arrayOfSubstrings = strng.split('\n').map(sub => Array.from(sub))
   let rounds = arrayOfSubstrings[0].length
-    for(let i = 0; i<rounds;i++){
-      let roundResult = []
-     arrayOfSubstrings[i]
-      for(let j=0; j<arrayOfSubstrings.length; j++){
-        roundResult.push(arrayOfSubstrings[j].pop())
-}
-      res.push(roundResult.join(''))
-      return res
-}
-}
-
-// or 
-
-function diag2Sym(s) {
-  let rows = s.split('\n').map(r => Array.from(r));
-  let n = rows.length;
-  let result = [];
-
-  for (let i = 0; i < n; i++) {
-    let newRow = [];
-    for (let j = 0; j < n; j++) {
-      // cell (i, j) in the output comes from cell (n-1-j, n-1-i) in the original
-      newRow.push(rows[n - 1 - j][n - 1 - i]);
+  for (let i = 0; i < rounds; i++) {
+    let roundResult = []
+    for (let j = 0; j < arrayOfSubstrings.length; j++) {
+      roundResult.push(arrayOfSubstrings[j].pop())
     }
-    result.push(newRow.join(''));
+    res.push(roundResult.join(''))
   }
-
-  return result.join('\n');
+  return res
 }
 
-function rot90Counter(s) {
-  let rows = s.split('\n').map(r => Array.from(r));
-  let n = rows.length;
-  let result = [];
+function selfieDiag2Counterclock(string) {
+  let originalRows = string.split('\n')
+  let diagRows = diag2Sym(string)   // fresh split happens inside diag2Sym
+  let rotRows = rot90Counter(string) // fresh split happens inside rot90Counter
 
-  for (let col = n - 1; col >= 0; col--) {
-    let newRow = [];
-    for (let row = 0; row < n; row++) {
-      newRow.push(rows[row][col]);
-    }
-    result.push(newRow.join(''));
-  }
-
-  return result.join('\n');
+  return originalRows
+    .map((row, i) => [row, diagRows[i], rotRows[i]].join('|'))
+    .join('\n')
 }
-
-let s = "abcd\nefgh\nijkl\nmnop";
-console.log(diag2Sym(s));      // "plhd\nokgc\nnjfb\nmiea"
-console.log(rot90Counter(s));  // "dhlp\ncgko\nbfjn\naeim"
+function oper(fct, s) {
+  let result = fct(s)
+  return Array.isArray(result) ? result.join('\n') : result
+} // "dhlp\ncgko\nbfjn\naeim"
