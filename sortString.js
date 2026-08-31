@@ -18,3 +18,13 @@ const sortString = (source, order) => {
     .concat(source.split('').filter(c => !order.includes(c)))
     .join("");
 };
+
+function sortString(string, ordering) {
+    let map = new Map()
+    for (let i = 0, k = 1; i < ordering.length; i++) {
+        if (map.has(ordering[i])) { continue }
+        map.set(ordering[i], k++)
+    }
+    return string.split("").sort((a, b) => (map.get(a) || Infinity) - (map.get(b) || Infinity)).join("")
+}
+
